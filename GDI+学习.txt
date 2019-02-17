@@ -1,0 +1,63 @@
+
+using System.Drawing;//提供对GDI+基本图形功能的访问
+using System.Drawing2D;//提供高级的二维和矢量图像功能
+using System.Drawing.Imaging;//提供高级GDI+图像处理功能
+using System.Drawing.Printing;//提供打印相关的服务
+using System.Drawing.Text;//提供高级GDI+排版功能
+using System.Drawing.Design;//扩展设计时，用户界面逻辑和绘制类。用于扩展、自定义
+
+画图工具:
+Graphics(画布)：类封装一个GDI+绘图图面，提供将对象绘制到显示设备的方法，Graphics与特定的设备上下文关联。
+画图方法被包括在Graphics类中，在画任何对象之前都需要创建一个Graphics类实例作为画图。
+
+创建画布的三种方法:
+[{
+	1.利用控件或窗体的Paint事件的PaintEventArgs
+	适用场景：为控件创建绘制代码。
+	示例：
+	//窗体的Paint事件响应方法
+	private void Form1_Paint(object sender, PaintEventArgs e)
+	{
+		Graphics g = e.Graphics;
+	}
+	//直接重载控件或者窗体的OnPaint方法：
+	protected override void OnPaint(PaintEventArgs e)
+	{
+		base.OnPaint(e);
+		Graphics g = e.Graphics;
+	}
+	注意：Paint事件在重绘控件时发生。
+
+	2.调用某控件或窗体的CreateGraphics方法以获取对Graphics对象的引用，该对象表示控件或窗体的绘图图面。
+	适用场景：在已经存在的窗体或控件上绘图
+	private void button1_Click(object sender, EventArgs e)
+	{
+		Graphics g = this.CreateGraphics();//(this表示窗体,可在Panel上绘画，panel.CreateGraphics())
+		g.Dispose();
+	}
+
+	3.由从Image继承的任何对象创建Graphics对象
+	适用场景：需要更改已经存在的图像
+	private void button1_Click(object sender, EventArgs e)
+	{
+		Image img = Image.FromFile(@"images\pic.jpg");
+		Graphics g=Graphics.FromImage(img);
+	}
+
+}]
+
+有了画布，还学要画笔，创建画笔的方式如下:
+[{
+	//用指定的颜色实例化一只画笔的方法如下： 
+	public Pen(Color); 
+	//用指定的画刷实例化一只画笔的方法如下： 
+	public Pen(Brush); 
+	//用指定的画刷和宽度实例化一只画笔的方法如下： 
+	public Pen(Brush , float); 
+	//用指定的颜色和宽度实例化一只画笔的方法如下： 
+	public Pen(Color, float)； 
+	//实例化画笔的语句格式如下： 
+	Pen pn=new Pen(Color.Blue); 
+	//或者 
+	Pen pn=new Pen(Color.Blue,100);
+}]
