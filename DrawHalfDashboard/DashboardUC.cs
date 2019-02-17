@@ -81,7 +81,7 @@ namespace DrawHalfDashboard
 
             double x = 0;
             for (int i = 0; i <= 180; i++)
-            {
+            { 
                 double rad = (x+StartArc) * Math.PI / 180;
                 if (i % 10 == 0)
                 {
